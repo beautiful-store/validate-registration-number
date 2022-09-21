@@ -5,44 +5,56 @@ import (
 	"strings"
 )
 
-
 func RegistrationNumber(nationalityType string, regNum string) bool {
 	regNum = strings.Replace(regNum, "-", "", 1)
 
 	var arrCheckNum = []int{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5}
 
-	sum := 0
+	if len(regNum) != 13 {
+		return false
+	}
 
+	sum := 0
 	for i := 0; i < 12; i++ {
 		r, _ := strconv.Atoi(string(regNum[i]))
 		sum += r * arrCheckNum[i]
 	}
-	if len(regNum) == 13 && nationalityType == "NATIVE" {
+
+	if nationalityType == "NATIVE" {
 		lastValue, _ := strconv.Atoi(string(regNum[12]))
 		verificationCode := 11 - (sum % 11)
+
+		seventhDigit := regNum[6:7] == "3" || regNum[6:7] == "4"
+		if regNum[0:4] >= "2010" && seventhDigit {
+			return true
+		}
 
 		if verificationCode >= 10 && verificationCode <= 11 {
 			verificationCode = verificationCode - 10
 		}
 		if lastValue == verificationCode {
 			return true
-		} else {
-			return false
 		}
-	} else if  len(regNum) == 13 && nationalityType == "FOREIGN" {
+		return false
+	}
 
+	if nationalityType == "FOREIGN" {
 		lastValue, _ := strconv.Atoi(string(regNum[12]))
 		verificationCode := 13 - (sum % 11)
+
+		seventhDigit := regNum[6:7] == "7" || regNum[6:7] == "8"
+		if regNum[0:4] >= "2010" && seventhDigit {
+			return true
+		}
 
 		if verificationCode >= 10 && verificationCode <= 13 {
 			verificationCode = verificationCode - 10
 		}
-		if lastValue == verificationCode{
+		if lastValue == verificationCode {
 			return true
-		} else {
-			return false
 		}
-	}else {
 		return false
 	}
+
+	return false
 }
