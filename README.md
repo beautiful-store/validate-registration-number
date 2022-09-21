@@ -21,3 +21,6 @@ nationalityType 종류 : NATIVE, FOREIGN
 ```
 	validate_registration_number.RegistrationNumber(nationalityType,regNum)
 ```
+
+# 버전
+2022-02-09 v0.0.0
