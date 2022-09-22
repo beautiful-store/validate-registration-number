@@ -10,7 +10,7 @@ import (
 func TestValidateBusinessNumber_외국인Ok(t *testing.T) {
 	//given
 	nationalityType := "FOREIGN"
-	regNum := "9901015020063"
+	regNum := "9901015000000"
 
 	//when
 	actual :=  RegistrationNumber(nationalityType, regNum)
@@ -72,6 +72,54 @@ func TestValidateBusinessNumber_내국인인경우유효하지않는경우 (t *t
 	//given
 	nationalityType := "NATIVE"
 	regNum := "9901015000000"
+
+	//when
+	actual :=  RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
+
+func TestValidateBusinessNumber_내국인_2020년10월이후_Ok (t *testing.T) {
+	//given
+	nationalityType := "NATIVE"
+	regNum := "2010013000000"
+
+	//when
+	actual :=  RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, true, actual)
+	assert.Equal(t, len(regNum), 13)
+}
+
+func TestValidateBusinessNumber_내국인_2020년10월이후_No(t *testing.T) {
+	//given
+	nationalityType := "FOREIGN"
+	regNum := "2010012000000"
+
+	//when
+	actual :=  RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
+
+func TestValidateBusinessNumber_외국인_2020년10월이후_Ok (t *testing.T) {
+	//given
+	nationalityType := "FOREIGN"
+	regNum := "2010017000000"
+
+	//when
+	actual :=  RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, true, actual)
+	assert.Equal(t, len(regNum), 13)
+}
+
+func TestValidateBusinessNumber_외국인_2020년10월이후_No(t *testing.T) {
+	//given
+	nationalityType := "NATIVE"
+	regNum := "2010015000000"
 
 	//when
 	actual :=  RegistrationNumber(nationalityType, regNum)
