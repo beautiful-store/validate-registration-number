@@ -1,6 +1,7 @@
 package validate_registration_number
 
 import (
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -8,6 +9,13 @@ import (
 
 func RegistrationNumber(nationalityType string, regNum string) bool {
 	regNum = strings.Replace(regNum, "-", "", 1)
+	r, _ := regexp.Compile("[0-9]{13}")
+	regexpCheck := r.MatchString(regNum)
+
+	if !regexpCheck {
+		return false
+	}
+
 	nowDate := time.Now().Format("0601")
 
 	var arrCheckNum = []int{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5}
