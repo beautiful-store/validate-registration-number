@@ -123,3 +123,27 @@ func TestValidateBusinessNumber_내국인_한글있는_경우(t *testing.T) {
 	assert.Equal(t, false, actual)
 	assert.Equal(t, len(regNum), 13)
 }
+
+func TestValidateBusinessNumber_내국인_5시작(t *testing.T) {
+	//given
+	nationalityType := "NATIVE"
+	regNum := "9101015020063"
+
+	//when
+	actual := RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
+
+func TestValidateBusinessNumber_외국인_2시작(t *testing.T) {
+	//given
+	nationalityType := "FOREIGN"
+	regNum := "8807122000000"
+
+	//when
+	actual := RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
