@@ -3,10 +3,12 @@ package validate_registration_number
 import (
 	"strconv"
 	"strings"
+	"time"
 )
 
 func RegistrationNumber(nationalityType string, regNum string) bool {
 	regNum = strings.Replace(regNum, "-", "", 1)
+	nowDate := time.Now().Format("0601")
 
 	var arrCheckNum = []int{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5}
 
@@ -25,7 +27,7 @@ func RegistrationNumber(nationalityType string, regNum string) bool {
 		verificationCode := 11 - (sum % 11)
 
 		seventhDigit := regNum[6:7] == "3" || regNum[6:7] == "4"
-		if regNum[0:4] >= "2010" && seventhDigit {
+		if regNum[0:4] >= "2010" && regNum[0:4] <= nowDate && seventhDigit {
 			return true
 		}
 
@@ -43,7 +45,7 @@ func RegistrationNumber(nationalityType string, regNum string) bool {
 		verificationCode := 13 - (sum % 11)
 
 		seventhDigit := regNum[6:7] == "7" || regNum[6:7] == "8"
-		if regNum[0:4] >= "2010" && seventhDigit {
+		if regNum[0:4] >= "2010" && regNum[0:4] <= nowDate && seventhDigit {
 			return true
 		}
 
