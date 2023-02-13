@@ -159,3 +159,15 @@ func TestValidateBusinessNumber_외국인_2시작(t *testing.T) {
 	assert.Equal(t, false, actual)
 	assert.Equal(t, len(regNum), 13)
 }
+
+func TestValidateBusinessNumber_내국인_앞자리생년월일잘못했을때(t *testing.T) {
+	//given
+	nationalityType := "NATIVE"
+	regNum := "2323213213231"
+
+	//when
+	actual := RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
