@@ -9,7 +9,7 @@ import (
 
 func RegistrationNumber(nationalityType string, regNum string) bool {
 	regNum = strings.Replace(regNum, "-", "", 1)
-	r, _ := regexp.Compile("[0-9]{13}")
+	r, _ := regexp.Compile("[0-9]{2}[0-1][0-9][0-3][0-9][1-9][0-9]{6}")
 	regexpCheck := r.MatchString(regNum)
 
 	if !regexpCheck {
