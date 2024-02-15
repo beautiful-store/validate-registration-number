@@ -171,3 +171,27 @@ func TestValidateBusinessNumber_내국인_앞자리생년월일잘못했을때(t
 	assert.Equal(t, false, actual)
 	assert.Equal(t, len(regNum), 13)
 }
+
+func TestValidateBusinessNumber_2093년으로_인식하면_에러나게하기_내국인(t *testing.T) {
+	//given
+	nationalityType := "NATIVE"
+	regNum := "9309053111111"
+
+	//when
+	actual := RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
+
+func TestValidateBusinessNumber_2093년으로_인식하면_에러나게하기_외국인(t *testing.T) {
+	//given
+	nationalityType := "FOREIGN"
+	regNum := "9008017234320"
+
+	//when
+	actual := RegistrationNumber(nationalityType, regNum)
+	//then
+	assert.Equal(t, false, actual)
+	assert.Equal(t, len(regNum), 13)
+}
